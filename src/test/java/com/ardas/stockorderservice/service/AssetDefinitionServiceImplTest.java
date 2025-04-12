@@ -2,25 +2,25 @@ package com.ardas.stockorderservice.service;
 
 import com.ardas.stockorderservice.model.AssetDefinition;
 import com.ardas.stockorderservice.repository.AssetDefinitionRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class AssetDefinitionServiceImplTest {
 
+    @Mock
     AssetDefinitionRepository repository;
-    AssetDefinitionServiceImpl assetDefinitionService;
 
-    @BeforeEach
-    void setup() {
-        repository = Mockito.mock(AssetDefinitionRepository.class);
-        assetDefinitionService = new AssetDefinitionServiceImpl(repository);
-    }
+    @InjectMocks
+    AssetDefinitionServiceImpl assetDefinitionService;
 
     @Test
     void testFound() {

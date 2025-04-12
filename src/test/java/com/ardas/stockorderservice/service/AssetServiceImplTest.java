@@ -6,12 +6,12 @@ import com.ardas.stockorderservice.model.AssetDefinition;
 import com.ardas.stockorderservice.model.Customer;
 import com.ardas.stockorderservice.model.enums.OrderSide;
 import com.ardas.stockorderservice.repository.AssetRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -25,21 +25,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AssetServiceImplTest {
 
+    @Mock
     AssetDefinitionService assetDefinitionService;
+
+    @Mock
     AssetRepository assetRepository;
 
+    @InjectMocks
     AssetServiceImpl assetService;
 
     @Captor
     ArgumentCaptor<Asset> assetArgumentCaptor;
-
-    @BeforeEach
-    void setup() {
-        assetDefinitionService = Mockito.mock(AssetDefinitionService.class);
-        assetRepository = Mockito.mock(AssetRepository.class);
-
-        assetService = new AssetServiceImpl(assetRepository, assetDefinitionService);
-    }
 
     @Test
     void testGetByCustomerAndAsset() {
