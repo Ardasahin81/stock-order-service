@@ -1,0 +1,17 @@
+create sequence s_asset_definition_seq start with 1 increment by 50;
+create sequence s_asset_seq start with 1 increment by 50;
+create sequence s_customer_seq start with 1 increment by 50;
+create sequence s_order_seq start with 1 increment by 50;
+create sequence s_user_role_seq start with 1 increment by 50;
+create sequence s_user_seq start with 1 increment by 50;
+create table s_asset (size numeric(19,8), usable_size numeric(19,8), created_date timestamp(6) not null, customer_id bigint, id bigint not null, modified_date timestamp(6), asset_name varchar(255), primary key (id));
+create table s_asset_definition (created_date timestamp(6) not null, id bigint not null, modified_date timestamp(6), name varchar(255), primary key (id), unique (name));
+create table s_customer (created_date timestamp(6) not null, id bigint not null, modified_date timestamp(6), name varchar(255), primary key (id));
+create table s_order (price numeric(19,8), size numeric(19,8), created_date timestamp(6) not null, customer_id bigint, id bigint not null, modified_date timestamp(6), asset_name varchar(255), order_side enum ('BUY','SELL'), status enum ('CANCELLED','MATCHED','PENDING'), primary key (id));
+create table s_user (created_date timestamp(6) not null, id bigint not null, modified_date timestamp(6), password varchar(255), username varchar(255), primary key (id));
+create table s_user_role (created_date timestamp(6) not null, id bigint not null, modified_date timestamp(6), user_id bigint, role varchar(255), primary key (id));
+alter table if exists s_asset add constraint FKdns5nc1a41wicxl5khi8q8d22 foreign key (asset_name) references s_asset_definition (name);
+alter table if exists s_asset add constraint FK98on124t4amara0o3nx9cokak foreign key (customer_id) references s_customer;
+alter table if exists s_order add constraint FKb5pkdntmjne4degadsdckj74t foreign key (asset_name) references s_asset_definition (name);
+alter table if exists s_order add constraint FK2e9t7keq1bwn5v3i6uuy3s4e4 foreign key (customer_id) references s_customer;
+alter table if exists s_user_role add constraint FK73hg6eioqf8til8u4luq2hu76 foreign key (user_id) references s_user;
