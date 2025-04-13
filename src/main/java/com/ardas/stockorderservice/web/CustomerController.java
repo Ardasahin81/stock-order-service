@@ -24,7 +24,7 @@ public class CustomerController {
         return MAPPER.toCustomerDto(customerService.createCustomer(request));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public List<CustomerDto> getAll() {
         return MAPPER.toCustomerDto(customerService.getAll());
     }
