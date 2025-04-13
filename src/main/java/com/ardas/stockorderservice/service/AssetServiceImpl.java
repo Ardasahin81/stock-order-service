@@ -65,32 +65,30 @@ public class AssetServiceImpl extends BaseServiceImpl<Asset, AssetRepository> im
     }
 
     @Override
-    public void actualizeOrderReduce(Long customerId, String assetName, BigDecimal size) {
-        Asset asset = getByCustomerAndAsset(customerId, assetName);
-        sizeModifyHelper(asset, size, Asset::setSize, Asset::getSize, false);
-        save(asset);
-    }
-
-    @Override
-    public void actualizeOrderincrease(Long customerId, String assetName, BigDecimal size) {
-        Asset asset = getByCustomerAndAsset(customerId, assetName);
-        sizeModifyHelper(asset, size, Asset::setUsableSize, Asset::getUsableSize, true);
-        sizeModifyHelper(asset, size, Asset::setSize, Asset::getSize, true);
-        save(asset);
-    }
-
-    @Override
     public void trade(Long customerId, OrderSide side, String baseAssetName, BigDecimal price, BigDecimal size) {
 
         BigDecimal totalQuote = price.multiply(size);
 
         if (side == BUY) {
             actualizeOrderReduce(customerId, DEFAULT_QUOTE_ASSET, totalQuote);
-            actualizeOrderincrease(customerId, baseAssetName, size);
+            actualizeOrderIncrease(customerId, baseAssetName, size);
         } else {
-            actualizeOrderincrease(customerId, DEFAULT_QUOTE_ASSET, totalQuote);
+            actualizeOrderIncrease(customerId, DEFAULT_QUOTE_ASSET, totalQuote);
             actualizeOrderReduce(customerId, baseAssetName, size);
         }
+    }
+
+    private void actualizeOrderReduce(Long customerId, String assetName, BigDecimal size) {
+        Asset asset = getByCustomerAndAsset(customerId, assetName);
+        sizeModifyHelper(asset, size, Asset::setSize, Asset::getSize, false);
+        save(asset);
+    }
+
+    private void actualizeOrderIncrease(Long customerId, String assetName, BigDecimal size) {
+        Asset asset = getByCustomerAndAsset(customerId, assetName);
+        sizeModifyHelper(asset, size, Asset::setSize, Asset::getSize, true);
+        sizeModifyHelper(asset, size, Asset::setUsableSize, Asset::getUsableSize, true);
+        save(asset);
     }
 
     private void sizeModifyHelper(Asset asset,
@@ -109,6 +107,11 @@ public class AssetServiceImpl extends BaseServiceImpl<Asset, AssetRepository> im
         }
 
         sizeFieldSetter.accept(asset, newSize);
+
+        if (asset.getSize().compareTo(asset.getUsableSize()) < 0) {
+            throw new InsufficientBalanceException(asset.getAssetDefinition().getName(), asset.getUsableSize(), asset.getSize());
+        }
+
     }
 
     private Asset createNew(Long customerId, AssetDefinition assetDefinition) {

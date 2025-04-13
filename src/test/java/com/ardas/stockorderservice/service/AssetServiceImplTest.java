@@ -72,24 +72,17 @@ class AssetServiceImplTest {
 
         BigDecimal amount = new BigDecimal("9958.22");
 
-        assertThrows(
+        InsufficientBalanceException exception = assertThrows(
                 InsufficientBalanceException.class,
                 () -> assetService.reduceUsableAmount(1L, "TRY", amount)
         );
 
         verify(assetRepository, times(0)).save(any());
-    }
 
-    @Test
-    void testReduceTotalAmount() {
-        doReturn(List.of(createDefaultAsset())).when(assetRepository).findByCustomerId(any());
+        assertEquals("TRY", exception.getDetails().get("asset"));
+        assertEquals("9958.22", exception.getDetails().get("required"));
+        assertEquals("9958.21", exception.getDetails().get("usable"));
 
-        assetService.actualizeOrderReduce(1L, "TRY", new BigDecimal("500.01"));
-
-        verify(assetRepository, times(1)).save(assetArgumentCaptor.capture());
-
-        assertEquals(new BigDecimal("9958.21"), assetArgumentCaptor.getValue().getUsableSize());
-        assertEquals(new BigDecimal("10020.03000000"), assetArgumentCaptor.getValue().getSize());
     }
 
     @Test
@@ -105,19 +98,25 @@ class AssetServiceImplTest {
     }
 
     @Test
-    void testIncreaseTotalAmount() {
+    void testIncreaseUsableAmountExceed() {
         doReturn(List.of(createDefaultAsset())).when(assetRepository).findByCustomerId(any());
 
-        assetService.actualizeOrderincrease(1L, "TRY", new BigDecimal("5155.87"));
+        BigDecimal amount = new BigDecimal("7900.62");
 
-        verify(assetRepository, times(1)).save(assetArgumentCaptor.capture());
+        InsufficientBalanceException exception = assertThrows(
+                InsufficientBalanceException.class,
+                () -> assetService.increaseUsableAmount(1L, "TRY", amount)
+        );
 
-        assertEquals(new BigDecimal("15114.08000000"), assetArgumentCaptor.getValue().getUsableSize());
-        assertEquals(new BigDecimal("15675.91000000"), assetArgumentCaptor.getValue().getSize());
+        verify(assetRepository, times(0)).save(any());
+
+        assertEquals("TRY", exception.getDetails().get("asset"));
+        assertEquals("17858.83000000", exception.getDetails().get("required"));
+        assertEquals("10520.04", exception.getDetails().get("usable"));
     }
 
     @Test
-    void testTrade() {
+    void testBuyTrade() {
         doReturn(List.of(createDefaultAsset())).when(assetRepository).findByCustomerId(any());
         doReturn(createBaseAssetDefinition()).when(assetDefinitionService).getOrCreate("SISE");
 

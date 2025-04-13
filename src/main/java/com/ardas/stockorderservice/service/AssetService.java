@@ -16,9 +16,5 @@ public interface AssetService extends BaseService<Asset> {
 
     void increaseUsableAmount(Long customerId, String assetName, BigDecimal size);
 
-    void actualizeOrderReduce(Long customerId, String assetName, BigDecimal size);
-
-    void actualizeOrderincrease(Long customerId, String assetName, BigDecimal size);
-
     void trade(Long customerId, OrderSide side, String assetName, BigDecimal price, BigDecimal size);
 }
