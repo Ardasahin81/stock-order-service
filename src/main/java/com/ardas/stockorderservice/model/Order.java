@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity

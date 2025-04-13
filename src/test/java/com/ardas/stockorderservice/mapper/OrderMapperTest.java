@@ -22,8 +22,8 @@ class OrderMapperTest {
     void testToDto() {
         Order order = new Order();
         order.setId(167L);
-        order.setCreatedDate(LocalDateTime.of(2025, 2,5,10,15,15,15));
-        order.setModifiedDate(LocalDateTime.of(2025, 2,5,10,15,16,15));
+        order.setCreatedDate(LocalDateTime.of(2025, 2, 5, 10, 15, 15, 15));
+        order.setModifiedDate(LocalDateTime.of(2025, 2, 5, 10, 15, 16, 15));
         order.setCustomer(createCustomer());
         order.setStatus(OrderStatus.PENDING);
         order.setAsset(createBaseAssetDefinition());
@@ -35,8 +35,8 @@ class OrderMapperTest {
 
         assertEquals(167L, order.getId());
         assertEquals("Arda", dto.getCustomer().getName());
-        assertEquals(LocalDateTime.of(2025, 2,5,10,15,15,15), dto.getCreatedDate());
-        assertEquals(LocalDateTime.of(2025, 2,5,10,15,16,15), dto.getModifiedDate());
+        assertEquals(LocalDateTime.of(2025, 2, 5, 10, 15, 15, 15), dto.getCreatedDate());
+        assertEquals(LocalDateTime.of(2025, 2, 5, 10, 15, 16, 15), dto.getModifiedDate());
         assertEquals(OrderStatus.PENDING, dto.getStatus());
         assertEquals("SISE", dto.getAsset().getName());
         assertEquals("16", dto.getPrice());
@@ -49,19 +49,19 @@ class OrderMapperTest {
     void testToDtoList() {
         Order order = new Order();
         order.setId(167L);
-        order.setCreatedDate(LocalDateTime.of(2025, 2,5,10,15,15,15));
-        order.setModifiedDate(LocalDateTime.of(2025, 2,5,10,15,16,15));
+        order.setCreatedDate(LocalDateTime.of(2025, 2, 5, 10, 15, 15, 15));
+        order.setModifiedDate(LocalDateTime.of(2025, 2, 5, 10, 15, 16, 15));
         order.setCustomer(createCustomer());
         order.setStatus(OrderStatus.PENDING);
         order.setAsset(createBaseAssetDefinition());
         order.setPrice(new BigDecimal("16"));
         order.setSize(new BigDecimal("11"));
         order.setOrderSide(OrderSide.BUY);
-        
+
         Order order2 = new Order();
         order2.setId(168L);
-        order2.setCreatedDate(LocalDateTime.of(2025, 2,5,10,15,20,15));
-        order2.setModifiedDate(LocalDateTime.of(2025, 2,5,10,15,21,15));
+        order2.setCreatedDate(LocalDateTime.of(2025, 2, 5, 10, 15, 20, 15));
+        order2.setModifiedDate(LocalDateTime.of(2025, 2, 5, 10, 15, 21, 15));
         order2.setCustomer(createCustomer());
         order2.setStatus(OrderStatus.PENDING);
         order2.setAsset(createBaseAssetDefinition());
@@ -73,8 +73,8 @@ class OrderMapperTest {
 
         assertEquals(167L, order.getId());
         assertEquals("Arda", orderDto.get(0).getCustomer().getName());
-        assertEquals(LocalDateTime.of(2025, 2,5,10,15,15,15), orderDto.get(0).getCreatedDate());
-        assertEquals(LocalDateTime.of(2025, 2,5,10,15,16,15), orderDto.get(0).getModifiedDate());
+        assertEquals(LocalDateTime.of(2025, 2, 5, 10, 15, 15, 15), orderDto.get(0).getCreatedDate());
+        assertEquals(LocalDateTime.of(2025, 2, 5, 10, 15, 16, 15), orderDto.get(0).getModifiedDate());
         assertEquals(OrderStatus.PENDING, orderDto.get(0).getStatus());
         assertEquals("SISE", orderDto.get(0).getAsset().getName());
         assertEquals("16", orderDto.get(0).getPrice());
@@ -83,8 +83,8 @@ class OrderMapperTest {
 
         assertEquals(167L, order.getId());
         assertEquals("Arda", orderDto.get(1).getCustomer().getName());
-        assertEquals(LocalDateTime.of(2025, 2,5,10,15,20,15), orderDto.get(1).getCreatedDate());
-        assertEquals(LocalDateTime.of(2025, 2,5,10,15,21,15), orderDto.get(1).getModifiedDate());
+        assertEquals(LocalDateTime.of(2025, 2, 5, 10, 15, 20, 15), orderDto.get(1).getCreatedDate());
+        assertEquals(LocalDateTime.of(2025, 2, 5, 10, 15, 21, 15), orderDto.get(1).getModifiedDate());
         assertEquals(OrderStatus.PENDING, orderDto.get(1).getStatus());
         assertEquals("SISE", orderDto.get(1).getAsset().getName());
         assertEquals("14", orderDto.get(1).getPrice());

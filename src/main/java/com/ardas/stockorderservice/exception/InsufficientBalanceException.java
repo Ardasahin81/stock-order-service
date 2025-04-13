@@ -26,7 +26,7 @@ public class InsufficientBalanceException extends BaseException {
 
     @Override
     public Map<String, Object> getDetails() {
-        return Map.of("asset", assetName, "required", required.toPlainString() , "usable", balance.toPlainString());
+        return Map.of("asset", assetName, "required", required.toPlainString(), "usable", balance.toPlainString());
     }
 
     @Override

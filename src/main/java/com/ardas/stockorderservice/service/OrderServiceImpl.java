@@ -61,7 +61,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository> im
         Order order = get(request.getOrderId())
                 .orElseThrow(() -> new RecordNotFoundException(Order.class, request.getOrderId()));
 
-        if(!isModifiable(order)) {
+        if (!isModifiable(order)) {
             throw new UnsupportedOperationException("only pending orders can be cancelled");
         }
 
@@ -77,7 +77,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository> im
         Order order = get(request.getOrderId())
                 .orElseThrow(() -> new RecordNotFoundException(Order.class, request.getOrderId()));
 
-        if(!isModifiable(order)) {
+        if (!isModifiable(order)) {
             throw new UnsupportedOperationException("only pending orders can be matched");
         }
 

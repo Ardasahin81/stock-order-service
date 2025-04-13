@@ -10,21 +10,13 @@ import java.time.LocalDateTime;
 public class OrderDto {
 
     private Long id;
-
     private LocalDateTime createdDate;
-
     private LocalDateTime modifiedDate;
-
     private CustomerDto customer;
-
     private AssetDefinitionDto asset;
-
     private OrderSide orderSide;
-
     private String size;
-
     private String price;
-
     private OrderStatus status;
 
 }

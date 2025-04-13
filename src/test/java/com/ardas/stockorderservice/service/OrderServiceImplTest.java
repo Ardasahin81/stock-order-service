@@ -109,7 +109,7 @@ class OrderServiceImplTest {
     @Test
     void testNotCancellable() {
 
-        Order mockOrder= createOrder();
+        Order mockOrder = createOrder();
         mockOrder.setStatus(OrderStatus.MATCHED);
 
         doReturn(Optional.of(mockOrder)).when(repository).findById(142L);
@@ -155,7 +155,7 @@ class OrderServiceImplTest {
     @Test
     void testNotMatchable() {
 
-        Order mockOrder= createOrder();
+        Order mockOrder = createOrder();
         mockOrder.setStatus(OrderStatus.CANCELLED);
 
         doReturn(Optional.of(mockOrder)).when(repository).findById(142L);

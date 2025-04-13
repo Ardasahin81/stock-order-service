@@ -84,7 +84,7 @@ public class AssetServiceImpl extends BaseServiceImpl<Asset, AssetRepository> im
 
         BigDecimal totalQuote = price.multiply(size);
 
-        if(side == BUY) {
+        if (side == BUY) {
             actualizeOrderReduce(customerId, DEFAULT_QUOTE_ASSET, totalQuote);
             actualizeOrderincrease(customerId, baseAssetName, size);
         } else {
