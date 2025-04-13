@@ -1,0 +1,5 @@
+spring.application.name: StockOrderService
+spring:
+  profiles:
+    active:
+      - h2
