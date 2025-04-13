@@ -29,7 +29,7 @@ public class OrderController {
         return MAPPER.toOrderDto(orderService.createOrder(request));
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public List<OrderDto> list(@RequestParam(required = false) Long customerId,
                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end
