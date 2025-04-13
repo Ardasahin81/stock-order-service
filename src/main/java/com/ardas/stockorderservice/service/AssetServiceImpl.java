@@ -105,7 +105,7 @@ public class AssetServiceImpl extends BaseServiceImpl<Asset, AssetRepository> im
         BigDecimal newSize = operator.apply(sizeFieldGetter.apply(asset), scaledSize);
 
         if (newSize.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InsufficientBalanceException("insufficient balance");
+            throw new InsufficientBalanceException(asset.getAssetDefinition().getName(), size, asset.getUsableSize());
         }
 
         sizeFieldSetter.accept(asset, newSize);

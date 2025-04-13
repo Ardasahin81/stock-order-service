@@ -44,7 +44,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository> im
     @Override
     @Transactional
     public Order createOrder(OrderCreateRequest request) {
-        Customer customer = customerService.get(request.getCustomerId()).orElseThrow(() -> new RecordNotFoundException("customer not found"));
+        Customer customer = customerService.get(request.getCustomerId())
+                .orElseThrow(() -> new RecordNotFoundException(Customer.class, request.getCustomerId()));
 
         Order order = MAPPER.toOrder(request, customer, assetDefinitionService.getOrCreate(request.getAssetName()));
 
@@ -57,7 +58,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository> im
     @Override
     @Transactional
     public void cancelOrder(OrderCancelRequest request) {
-        Order order = get(request.getOrderId()).orElseThrow(() -> new RecordNotFoundException("order not found"));
+        Order order = get(request.getOrderId())
+                .orElseThrow(() -> new RecordNotFoundException(Order.class, request.getOrderId()));
 
         if(!isModifiable(order)) {
             throw new UnsupportedOperationException("only pending orders can be cancelled");
@@ -72,7 +74,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository> im
     @Override
     @Transactional
     public void matchOrder(OrderMatchRequest request) {
-        Order order = get(request.getOrderId()).orElseThrow(() -> new RecordNotFoundException("order not found"));
+        Order order = get(request.getOrderId())
+                .orElseThrow(() -> new RecordNotFoundException(Order.class, request.getOrderId()));
 
         if(!isModifiable(order)) {
             throw new UnsupportedOperationException("only pending orders can be matched");
