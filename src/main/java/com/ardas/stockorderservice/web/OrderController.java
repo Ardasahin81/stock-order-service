@@ -44,7 +44,7 @@ public class OrderController {
     }
 
     @PostMapping("/match")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void match(@RequestBody OrderMatchRequest request) {
         orderService.matchOrder(request);
     }
