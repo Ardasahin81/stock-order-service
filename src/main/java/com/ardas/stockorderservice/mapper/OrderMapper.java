@@ -28,7 +28,7 @@ public abstract class OrderMapper {
     @Mapping(target = "modifiedDate", ignore = true)
     @Mapping(target = "orderSide", source = "request.side")
     @Mapping(target = "status", expression = "java(getInitialStatus())")
-    public abstract Order toOrder(OrderCreateRequest request, Customer customer, AssetDefinition asset);
+    public abstract Order createOrder(OrderCreateRequest request, Customer customer, AssetDefinition asset);
 
     protected OrderStatus getInitialStatus() {
         return OrderStatus.PENDING;

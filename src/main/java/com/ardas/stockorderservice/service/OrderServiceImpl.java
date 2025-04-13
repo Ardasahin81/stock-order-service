@@ -47,7 +47,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository> im
         Customer customer = customerService.get(request.getCustomerId())
                 .orElseThrow(() -> new RecordNotFoundException(Customer.class, request.getCustomerId()));
 
-        Order order = MAPPER.toOrder(request, customer, assetDefinitionService.getOrCreate(request.getAssetName()));
+        Order order = MAPPER.createOrder(request, customer, assetDefinitionService.getOrCreate(request.getAssetName()));
 
         assetService.reduceUsableAmount(customer.getId(), getRequiredAssetName(order), getRequiredAmount(order));
 

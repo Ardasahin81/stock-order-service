@@ -101,7 +101,7 @@ class OrderMapperTest {
         request.setCustomerId(1L);
         request.setSize(new BigDecimal("4"));
 
-        Order order = OrderMapper.INSTANCE.toOrder(request, createCustomer(), createBaseAssetDefinition());
+        Order order = OrderMapper.INSTANCE.createOrder(request, createCustomer(), createBaseAssetDefinition());
 
         assertNull(order.getId());
         assertNull(order.getCreatedDate());
