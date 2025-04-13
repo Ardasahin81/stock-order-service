@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    private final CustomerMapper MAPPER = CustomerMapper.INSTANCE;
+    private static final CustomerMapper MAPPER = CustomerMapper.INSTANCE;
 
     private final CustomerService customerService;
 
