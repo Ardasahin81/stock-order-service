@@ -7,6 +7,7 @@ import com.ardas.stockorderservice.dto.request.OrderMatchRequest;
 import com.ardas.stockorderservice.mapper.OrderMapper;
 import com.ardas.stockorderservice.service.OrderService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -43,7 +44,9 @@ public class OrderController {
     }
 
     @PostMapping("/match")
+    @PreAuthorize("hasRole('ADMIN')")
     public void match(@RequestBody OrderMatchRequest request) {
         orderService.matchOrder(request);
     }
+
 }
